@@ -51,18 +51,18 @@ let delay = 0
 let go = 0
 initLight()
 basic.forever(function () {
-    if (mode == 1) {
-        strip.show()
-        basic.pause(delay)
-        strip2.show()
-        basic.pause(delay)
-    }
-})
-basic.forever(function () {
     if (mode == 0) {
         strip.showColor(color)
         strip.setBrightness(Math.map(pins.analogReadPin(AnalogPin.P0), 0, 1023, 0, 255))
         strip.show()
+        basic.pause(delay)
+    }
+})
+basic.forever(function () {
+    if (mode == 1) {
+        strip.show()
+        basic.pause(delay)
+        strip2.show()
         basic.pause(delay)
     }
 })
