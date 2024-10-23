@@ -1,15 +1,15 @@
 function initLight () {
-    mode = 0
+    modus = 0
     streifen1 = neopixel.create(DigitalPin.P14, anzahlLeds, NeoPixelMode.RGB)
-    color = neopixel.colors(NeoPixelColors.Purple)
-    delay = 100
+    farbe = neopixel.colors(NeoPixelColors.Purple)
+    delay = 20
 }
 input.onButtonPressed(Button.A, function () {
     initLight()
 })
 input.onPinPressed(TouchPin.P2, function () {
-    if (mode == 0) {
-        color = neopixel.rgb(randint(0, 255), randint(0, 255), randint(0, 255))
+    if (modus == 0) {
+        farbe = neopixel.rgb(randint(0, 255), randint(0, 255), randint(0, 255))
     } else {
         if (go == 1) {
             streifen2.rotate(schrittweite)
@@ -21,7 +21,7 @@ input.onButtonPressed(Button.B, function () {
     initRace()
 })
 input.onPinPressed(TouchPin.P1, function () {
-    if (mode == 0) {
+    if (modus == 0) {
     	
     } else {
         if (go == 1) {
@@ -31,8 +31,8 @@ input.onPinPressed(TouchPin.P1, function () {
     }
 })
 function initRace () {
-    rounds = 3
-    mode = 1
+    spielrunden = 3
+    modus = 1
     go = 0
     delay = 100
     schrittweite = 3
@@ -54,34 +54,34 @@ function initRace () {
     delay = 10
     go = 1
 }
-let rounds = 0
+let spielrunden = 0
 let punkte1 = 0
 let punkte2 = 0
 let schrittweite = 0
 let streifen2: neopixel.Strip = null
 let go = 0
 let delay = 0
-let color = 0
+let farbe = 0
 let streifen1: neopixel.Strip = null
-let mode = 0
+let modus = 0
 let anzahlLeds = 0
 anzahlLeds = 60
 music.setVolume(10)
 initLight()
 basic.forever(function () {
-    if (mode == 0) {
-        streifen1.showColor(color)
+    if (modus == 0) {
+        streifen1.showColor(farbe)
         streifen1.setBrightness(Math.map(pins.analogReadPin(AnalogPin.P0), 0, 1023, 0, 255))
         streifen1.show()
     }
     basic.pause(delay)
 })
 basic.forever(function () {
-    if (mode == 1) {
+    if (modus == 1) {
         streifen1.show()
         basic.pause(delay)
         streifen2.show()
-        if (punkte1 * schrittweite >= rounds * anzahlLeds - schrittweite || punkte2 * schrittweite >= rounds * anzahlLeds - schrittweite) {
+        if (punkte1 * schrittweite >= spielrunden * anzahlLeds - schrittweite || punkte2 * schrittweite >= spielrunden * anzahlLeds - schrittweite) {
             go = 0
             music._playDefaultBackground(music.builtInPlayableMelody(Melodies.Entertainer), music.PlaybackMode.InBackground)
             delay = 200
