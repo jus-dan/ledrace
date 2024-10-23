@@ -35,7 +35,7 @@ function initRace () {
     modus = 1
     go = 0
     delay = 100
-    schrittweite = 3
+    schrittweite = 2
     punkte1 = 0
     punkte2 = 0
     streifen1 = neopixel.create(DigitalPin.P14, anzahlLeds, NeoPixelMode.RGB)
@@ -66,7 +66,7 @@ let streifen1: neopixel.Strip = null
 let modus = 0
 let anzahlLeds = 0
 anzahlLeds = 60
-music.setVolume(10)
+music.setVolume(155)
 initLight()
 basic.forever(function () {
     if (modus == 0) {
