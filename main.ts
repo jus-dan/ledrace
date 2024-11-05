@@ -40,9 +40,9 @@ function initRace () {
     punkte2 = 0
     streifen1 = neopixel.create(DigitalPin.P14, anzahlLeds, NeoPixelMode.RGB)
     streifen2 = neopixel.create(DigitalPin.P14, anzahlLeds, NeoPixelMode.RGB)
-    streifen1.setPixelColor(0, neopixel.colors(NeoPixelColors.Red))
-    streifen1.setPixelColor(1, neopixel.colors(NeoPixelColors.Red))
-    streifen1.setPixelColor(2, neopixel.colors(NeoPixelColors.Red))
+    streifen1.setPixelColor(0, neopixel.colors(NeoPixelColors.Yellow))
+    streifen1.setPixelColor(1, neopixel.colors(NeoPixelColors.Yellow))
+    streifen1.setPixelColor(2, neopixel.colors(NeoPixelColors.Yellow))
     streifen2.setPixelColor(0, neopixel.colors(NeoPixelColors.Blue))
     streifen2.setPixelColor(1, neopixel.colors(NeoPixelColors.Blue))
     streifen2.setPixelColor(2, neopixel.colors(NeoPixelColors.Blue))
@@ -79,6 +79,8 @@ basic.forever(function () {
 basic.forever(function () {
     if (modus == 1) {
         streifen1.show()
+        pins.digitalWritePin(DigitalPin.P15, 0)
+        pins.digitalWritePin(DigitalPin.P16, 0)
         basic.pause(delay)
         streifen2.show()
         if (punkte1 * schrittweite >= spielrunden * anzahlLeds - schrittweite || punkte2 * schrittweite >= spielrunden * anzahlLeds - schrittweite) {
@@ -89,5 +91,7 @@ basic.forever(function () {
             punkte2 = 0
         }
     }
+    pins.digitalWritePin(DigitalPin.P15, 1)
+    pins.digitalWritePin(DigitalPin.P16, 1)
     basic.pause(delay)
 })
