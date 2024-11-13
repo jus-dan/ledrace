@@ -89,6 +89,7 @@ basic.forever(function () {
 })
 basic.forever(function () {
     if (modus == 2) {
+        streifen1.setBrightness(Math.map(pins.analogReadPin(AnalogPin.P0), 0, 1023, 0, 255))
         streifen1.rotate(1)
         streifen1.show()
     }
