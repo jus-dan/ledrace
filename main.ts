@@ -1,36 +1,8 @@
-function initLight () {
-    modus = 0
-    streifen1 = neopixel.create(DigitalPin.P14, anzahlLeds, NeoPixelMode.RGB)
-    farbe = neopixel.colors(NeoPixelColors.Purple)
-    delay = 20
-}
-input.onButtonPressed(Button.A, function () {
-    initLight()
+input.onLogoEvent(TouchButtonEvent.Pressed, function () {
+    Regenbogenmodus()
 })
-input.onPinPressed(TouchPin.P2, function () {
-    if (modus == 0) {
-        farbe = neopixel.rgb(randint(0, 255), randint(0, 255), randint(0, 255))
-    } else {
-        if (go == 1) {
-            streifen2.rotate(schrittweite)
-            punkte2 += 1
-        }
-    }
-})
-input.onButtonPressed(Button.B, function () {
-    initRace()
-})
-input.onPinPressed(TouchPin.P1, function () {
-    if (modus == 0) {
-    	
-    } else {
-        if (go == 1) {
-            streifen1.rotate(schrittweite)
-            punkte1 += 1
-        }
-    }
-})
-function initRace () {
+function Spielmodus () {
+    basic.showIcon(IconNames.Duck)
     spielrunden = 3
     modus = 1
     go = 0
@@ -54,24 +26,70 @@ function initRace () {
     delay = 10
     go = 1
 }
-let spielrunden = 0
-let punkte1 = 0
-let punkte2 = 0
-let schrittweite = 0
-let streifen2: neopixel.Strip = null
-let go = 0
-let delay = 0
+input.onButtonPressed(Button.A, function () {
+    Lichtmodus()
+})
+input.onPinPressed(TouchPin.P2, function () {
+    if (modus == 0) {
+        farbe = neopixel.rgb(randint(0, 255), randint(0, 255), randint(0, 255))
+    } else {
+        if (go == 1) {
+            streifen2.rotate(schrittweite)
+            punkte2 += 1
+        }
+    }
+})
+function Lichtmodus () {
+    basic.showIcon(IconNames.Happy)
+    modus = 0
+    streifen1 = neopixel.create(DigitalPin.P14, anzahlLeds, NeoPixelMode.RGB)
+    farbe = neopixel.colors(NeoPixelColors.Purple)
+    delay = 20
+}
+input.onButtonPressed(Button.B, function () {
+    Spielmodus()
+})
+input.onPinPressed(TouchPin.P1, function () {
+    if (modus == 0) {
+    	
+    } else {
+        if (go == 1) {
+            streifen1.rotate(schrittweite)
+            punkte1 += 1
+        }
+    }
+})
+function Regenbogenmodus () {
+    basic.showIcon(IconNames.Ghost)
+    modus = 2
+    streifen1 = neopixel.create(DigitalPin.P14, anzahlLeds, NeoPixelMode.RGB)
+    streifen1.showRainbow(1, 360)
+}
 let farbe = 0
+let streifen2: neopixel.Strip = null
 let streifen1: neopixel.Strip = null
+let punkte2 = 0
+let punkte1 = 0
+let schrittweite = 0
+let delay = 0
+let go = 0
 let modus = 0
+let spielrunden = 0
 let anzahlLeds = 0
 anzahlLeds = 60
 music.setVolume(155)
-initLight()
+Lichtmodus()
 basic.forever(function () {
     if (modus == 0) {
         streifen1.showColor(farbe)
         streifen1.setBrightness(Math.map(pins.analogReadPin(AnalogPin.P0), 0, 1023, 0, 255))
+        streifen1.show()
+    }
+    basic.pause(delay)
+})
+basic.forever(function () {
+    if (modus == 2) {
+        streifen1.rotate(1)
         streifen1.show()
     }
     basic.pause(delay)
