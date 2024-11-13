@@ -98,8 +98,8 @@ basic.forever(function () {
 basic.forever(function () {
     if (modus == 1) {
         streifen1.show()
-        pins.digitalWritePin(DigitalPin.P15, 0)
-        pins.digitalWritePin(DigitalPin.P16, 0)
+        pins.digitalWritePin(DigitalPin.P15, 1)
+        pins.digitalWritePin(DigitalPin.P16, 1)
         basic.pause(delay)
         streifen2.show()
         if (punkte1 * schrittweite >= spielrunden * anzahlLeds - schrittweite || punkte2 * schrittweite >= spielrunden * anzahlLeds - schrittweite) {
@@ -110,7 +110,7 @@ basic.forever(function () {
             punkte2 = 0
         }
     }
-    pins.digitalWritePin(DigitalPin.P15, 1)
-    pins.digitalWritePin(DigitalPin.P16, 1)
+    pins.digitalWritePin(DigitalPin.P15, 0)
+    pins.digitalWritePin(DigitalPin.P16, 0)
     basic.pause(delay)
 })
